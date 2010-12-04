@@ -100,9 +100,11 @@ void FullscreenChat::keyboardHandler()
 					if(shift)
 						key = capitaliseKey(key);
 					std::cout << shift << " " <<  key << " (" << i << ")" << std::endl;
-					//SendMessage(chatHandle, WM_KEYDOWN, key, 0);
-					//SendMessage(chatHandle, WM_KEYUP, key, 0);
-					SendMessage(chatHandle, WM_CHAR, key, 0);
+					SendMessage(chatHandle, WM_KEYDOWN, VK_SHIFT, 1);
+					SendMessage(chatHandle, WM_KEYDOWN, i, 1);
+					SendMessage(chatHandle, WM_CHAR, key, 1);
+					SendMessage(chatHandle, WM_KEYUP, i, 1 | (1 << 30));
+					SendMessage(chatHandle, WM_KEYUP, VK_SHIFT, 1 | (1 << 30));
 				}
 			}
 			bool & isDown = keyStates[i];
